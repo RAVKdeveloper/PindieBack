@@ -7,11 +7,11 @@ export const router = Router()
 
 export function Controller(prefix: string): ClassDecorator {
   return (target: any) => {
-    Reflect.defineProperty(target, prefix, 'prefix')
-    if (!Reflect.has(target, 'routes')) {
-      Reflect.defineProperty(target, '', 'prefix')
+    Reflect.defineMetadata('prefix', prefix, target)
+    if (!Reflect.hasMetadata('routes', target)) {
+      Reflect.defineMetadata('routes', [], target)
     }
-    const routes: Array<RouteDefinition> = Reflect.get(target, target)
+    const routes: Array<RouteDefinition> = Reflect.getMetadata('routes', target)
     const instance: any = Container.get(target)
     routes.forEach((route: RouteDefinition) => {
       router[route.method](`${prefix}${route.path}`, instance[route.methodName].bind(instance))
