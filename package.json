@@ -2,10 +2,9 @@
   "name": "pindie-back",
   "version": "1.0.0",
   "description": "Back-end service to Pindie application",
-  "type": "module",
-  "main": "app/app.ts",
+  "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon app/app.ts"
   },
   "keywords": [
     "Back-end to Pindie",
