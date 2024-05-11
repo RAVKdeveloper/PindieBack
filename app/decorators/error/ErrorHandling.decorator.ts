@@ -21,7 +21,7 @@ export function ErrorHandling() {
             .status(err.status)
             .send({ message: err.message, status: 'Fail', code: err.status })
         }
-        return res.status(500).send({ message: 'Server Internal', status: 'Fail', code: 500 })
+        return res.status(500).send({ message: 'Server internal', status: 'Fail', code: 500 })
       }
     }
   }

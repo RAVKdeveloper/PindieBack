@@ -4,7 +4,7 @@ import { User } from '../../models/User.model'
 import { TokensService } from '../'
 import { ApiError } from '../../helpers/Error.utils'
 
-import { IRegistrationUserDto } from '../../dto'
+import { IRegistrationUserDto, ILoginUserDto } from '../../dto'
 
 class AuthService {
   public async registration(dto: IRegistrationUserDto) {
@@ -20,6 +20,22 @@ class AuthService {
     const token = TokensService.generateToken({ id: newUser.id })
 
     return { user: newUser, token }
+  }
+
+  public async login(dto: ILoginUserDto) {
+    const user = await this.checkUserCredentials(dto.email, dto.password)
+
+    const token = TokensService.generateToken({ id: user.id })
+
+    return { user, token }
+  }
+
+  public async me(id: string) {
+    const user = await User.findById(id)
+
+    if (!user) throw new ApiError('Такой пользователь не существует', 404)
+
+    return user
   }
 
   private async checkUserCredentials(email: string, password: string) {

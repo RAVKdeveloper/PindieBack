@@ -4,7 +4,8 @@
   "description": "Back-end service to Pindie application",
   "main": "app.ts",
   "scripts": {
-    "dev": "nodemon app/app.ts"
+    "dev": "nodemon app/app.ts",
+    "build": "tsc"
   },
   "keywords": [
     "Back-end to Pindie",

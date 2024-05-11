@@ -12,6 +12,11 @@ class TokenService {
 
     return payload
   }
+
+  public validateToken(token: string) {
+    const payload = jwt.verify(token, process.env.SECRET)
+    return payload
+  }
 }
 
 export default new TokenService()
