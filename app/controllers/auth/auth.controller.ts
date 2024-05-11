@@ -1,5 +1,5 @@
 import { Service } from 'typedi'
-import type { NextFunction, Request, Response } from 'express'
+import type { Request, Response } from 'express'
 
 import type { RequestWithUser } from '../../constants/RequestWithUser.type'
 import { ErrorHandling, Controller, Post, Get, Middleware } from '../../decorators'
@@ -7,7 +7,6 @@ import { StatusRespones } from '../../constants/StatusRes.constant'
 import { AuthService } from '../../service'
 import { RegistrationUserDto, LoginUserDto } from '../../dto'
 import { CheckAuthGuard } from '../../middlewares'
-import { ApiError } from '../../helpers/Error.utils'
 
 @Controller('/auth')
 @Service()
