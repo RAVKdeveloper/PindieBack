@@ -34,7 +34,7 @@ class GameController {
   @ErrorHandling()
   public async createGame(req: RequestWithUser, res: Response) {
     const dto = CreateGameDto.parse(req.body)
-    const game = GameService.createGame(req.body, req.user.id)
+    const game = GameService.createGame(dto, req.user.id)
 
     res.status(201).send({ status: StatusRespones.OK, game, code: 201 })
   }
