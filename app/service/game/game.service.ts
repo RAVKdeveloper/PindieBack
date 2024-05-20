@@ -1,19 +1,30 @@
 import mongoose from 'mongoose'
 
+import { ICreateGameDto, IQueryGamesDto, IUpdateGameDto } from '../../dto'
+import { ApiError } from '../../helpers/Error.utils'
 import { Game } from '../../models/Game.model'
 import { User } from '../../models/User.model'
-import { ApiError } from '../../helpers/Error.utils'
-import { ICreateGameDto, IUpdateGameDto } from '../../dto'
 
-class GameService {
-  public async findAllGames() {
-    const games = await Game.find()
+export class GameService {
+  private gameRepo = Game
+  private userRepo = User
+
+  public async findAllGames(query: IQueryGamesDto) {
+    const games = await this.gameRepo.find()
+
+    if (query.category) {
+      const gamesWithCategory = games.filter(game => {
+        return game.categories.find(category => category.toString() === query.category)
+      })
+
+      return gamesWithCategory
+    }
 
     return games
   }
 
   public async findGameById(id: string) {
-    const game = await Game.findById(id)
+    const game = await this.gameRepo.findById(id)
 
     if (!game) throw new ApiError('Такой игры не существует', 404)
 
@@ -22,11 +33,11 @@ class GameService {
 
   public async createGame(dto: ICreateGameDto, userId: string) {
     const user = await this.checkCreaterUser(userId)
-    const isEmptyGame = await Game.findOne({ title: dto.title })
+    const isEmptyGame = await this.gameRepo.findOne({ title: dto.title })
 
     if (isEmptyGame) throw new ApiError('Такая игра уже существует', 403)
 
-    const newGame = await Game.create({
+    const newGame = await this.gameRepo.create({
       ...dto,
       users: [user],
       categories: [],
@@ -36,7 +47,7 @@ class GameService {
   }
 
   public async updateGame(dto: IUpdateGameDto, userId: string, gameId: string) {
-    const game = await Game.findById(gameId)
+    const game = await this.gameRepo.findById(gameId)
 
     if (!game) throw new ApiError('Такой игры не существует', 404)
 
@@ -48,7 +59,7 @@ class GameService {
 
     if (!isUserCreator) throw new ApiError('Доступ запрещён', 403)
 
-    const updatedGame = await Game.updateOne(
+    const updatedGame = await this.gameRepo.updateOne(
       { title: game.title, _id: game._id },
       {
         $set: {
@@ -64,22 +75,20 @@ class GameService {
   }
 
   public async deleteGame(id: string) {
-    const game = await Game.findById(id)
+    const game = await this.gameRepo.findById(id)
 
     if (!game) throw new ApiError('Такой игры не существует', 404)
 
-    await Game.deleteOne({ _id: game._id })
+    await this.gameRepo.deleteOne({ _id: game._id })
 
     return game
   }
 
   private async checkCreaterUser(id: string) {
-    const user = await User.findById(id)
+    const user = await this.userRepo.findById(id)
 
     if (!user) throw new ApiError('Такой пользователь не существует', 404)
 
     return user
   }
 }
-
-export default new GameService()

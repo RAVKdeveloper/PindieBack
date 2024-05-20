@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import { User } from './User.model'
 import { Category } from './Category.model'
+import { User } from './User.model'
 
 const GameSchema = new mongoose.Schema({
   title: {
@@ -33,6 +33,12 @@ const GameSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: Category,
+    },
+  ],
+  vote: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: User,
     },
   ],
 })
