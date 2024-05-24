@@ -40,7 +40,7 @@ export class GameService {
     const newGame = await this.gameRepo.create({
       ...dto,
       users: [user],
-      categories: [],
+      categories: dto.categories ?? [],
     })
 
     return newGame
@@ -67,6 +67,7 @@ export class GameService {
           description: dto.description,
           image: dto.image,
           link: dto.link,
+          categories: dto.categories ?? game.categories,
         },
       },
     )

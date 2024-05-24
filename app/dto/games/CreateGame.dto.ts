@@ -6,6 +6,7 @@ export const CreateGameDto = z.object({
   developer: z.string().min(3).max(70),
   image: z.string().min(5).max(300),
   link: z.string().url(),
+  categories: z.string().array().optional(),
 })
 
 export type ICreateGameDto = z.infer<typeof CreateGameDto>

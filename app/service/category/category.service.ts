@@ -1,4 +1,9 @@
-import { IAddGameToCategory, ICreateCategory, IRemoveGameToCategoryDto } from '../../dto'
+import {
+  IAddGameToCategory,
+  ICreateCategory,
+  IRemoveGameToCategoryDto,
+  IUpdateCategoryDto,
+} from '../../dto'
 import { Category } from '../../models/Category.model'
 import { Game } from '../../models/Game.model'
 
@@ -64,6 +69,21 @@ class CategoryService {
     )
 
     return updatedGame
+  }
+
+  public async updateCategory(dto: IUpdateCategoryDto, id: string) {
+    const category = await this.categoryRepo.findById(id)
+
+    if (!category) throw new ApiError('Категория не найдена', 404)
+
+    const updatedCategory = await this.categoryRepo.updateOne(
+      {
+        name: category.name,
+      },
+      { $set: { name: dto.name } },
+    )
+
+    return updatedCategory
   }
 
   public async deleteCategory(id: string) {

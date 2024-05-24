@@ -4,7 +4,13 @@ import { Service } from 'typedi'
 import { RequestWithUser } from '../../constants/RequestWithUser.type'
 import { StatusRespones } from '../../constants/StatusRes.constant'
 import { Controller, Delete, ErrorHandling, Get, Middleware, Post, Put } from '../../decorators'
-import { AddGameToCategoryDto, CreateCategoryDto, IdDto, RemoveGameToCategoryDto } from '../../dto'
+import {
+  AddGameToCategoryDto,
+  CreateCategoryDto,
+  IdDto,
+  RemoveGameToCategoryDto,
+  UpdateCategoryDto,
+} from '../../dto'
 import { CheckAuthGuard } from '../../middlewares'
 import { CategoryService } from '../../service'
 
@@ -50,6 +56,16 @@ class CategoryController {
     const updatedGame = await this.categoryService.removeGameToCategory(body, req.user.id)
 
     res.status(200).send({ status: StatusRespones.OK, data: updatedGame, code: 200 })
+  }
+
+  @Put('/:id')
+  @Middleware(CheckAuthGuard.checkToken)
+  @ErrorHandling()
+  public async updateCategory(req: Request, res: Response) {
+    const body = UpdateCategoryDto.parse(req.body)
+    const updatedCategory = await this.categoryService.updateCategory(body, req.params.id)
+
+    res.status(200).send({ status: StatusRespones.OK, data: updatedCategory, code: 200 })
   }
 
   @Delete('/:id')

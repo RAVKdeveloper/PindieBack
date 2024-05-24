@@ -3,8 +3,8 @@ import { appendCategoryEditModeForm } from './forms.js'
 const appendGameCategoriesList = (categoriesArray, parent) => {
   categoriesArray.forEach(category => {
     const listItem = document.createElement('li')
-    listItem.dataset.id = category._id
-    listItem.textContent = category.name
+    listItem.dataset.id = category
+    listItem.textContent = `ID категории: ${category}`
     parent.append(listItem)
   })
 }
@@ -15,7 +15,6 @@ const generateGamesList = (gamesArray, template, parent) => {
     return
   }
   gamesArray.forEach(element => {
-    console.log(element)
     const clone = template.content.cloneNode(true)
     clone.querySelector('h3').textContent = element.title
     clone.querySelector('.text').textContent = element.description
@@ -24,11 +23,11 @@ const generateGamesList = (gamesArray, template, parent) => {
     const catlist = clone.querySelector('.categories')
     appendGameCategoriesList(element.categories, catlist)
     const voteslist = clone.querySelector('.votes')
-    if (element.users && element.users.length > 0) {
-      element.users.forEach(user => {
+    if (element.vote && element.users.length > 0) {
+      element.vote.forEach(item => {
         const listItem = document.createElement('li')
-        listItem.dataset.id = user._id
-        listItem.textContent = user.username
+        listItem.dataset.id = item
+        listItem.textContent = `ID голосовавщего: ${item}`
         voteslist.append(listItem)
       })
     } else {

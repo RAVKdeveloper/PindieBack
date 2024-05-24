@@ -149,7 +149,7 @@ const removeUserFormListeners = () => {
 }
 
 const deleteGame = async id => {
-  const response = await deleteData(`/api/games/${id}`)
+  const response = await deleteData(`/api/game/${id}`)
   return response
 }
 
@@ -169,7 +169,7 @@ const addDeleteGameListeners = async () => {
 }
 
 const deleteCategory = async id => {
-  const response = await deleteData(`/api/categories/${id}`)
+  const response = await deleteData(`/api/category/${id}`)
   return response
 }
 

@@ -1,8 +1,6 @@
-import * as bcrypt from 'bcrypt'
-
-import { User } from '../../models/User.model'
-import { ApiError } from '../../helpers/Error.utils'
 import { IUpdateUserDto } from '../../dto'
+import { ApiError } from '../../helpers/Error.utils'
+import { User } from '../../models/User.model'
 
 class UsersService {
   public async findAllUsers() {
@@ -24,12 +22,9 @@ class UsersService {
 
     if (!user) throw new ApiError('Такой пользователь не существует', 404)
 
-    const salt = await bcrypt.genSalt(10)
-    const hashPassword = await bcrypt.hash(dto.password, salt)
-
     await User.updateOne(
       { email: user.email, username: user.username },
-      { $set: { username: dto.username, password: hashPassword } },
+      { $set: { username: dto.username, email: dto.email } },
     )
 
     return user
