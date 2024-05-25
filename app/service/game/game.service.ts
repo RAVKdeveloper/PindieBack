@@ -14,7 +14,7 @@ export class GameService {
 
     if (query.category) {
       const gamesWithCategory = games.filter(game => {
-        return game.categories.find(category => category.toString() === query.category)
+        return game.categories.find(category => category._id.toString() === query.category)
       })
 
       return gamesWithCategory
