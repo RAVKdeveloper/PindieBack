@@ -10,7 +10,7 @@ export class GameService {
   private userRepo = User
 
   public async findAllGames(query: IQueryGamesDto) {
-    const games = await this.gameRepo.find()
+    const games = await this.gameRepo.find().populate('categories').populate('vote')
 
     if (query.category) {
       const gamesWithCategory = games.filter(game => {
@@ -24,7 +24,7 @@ export class GameService {
   }
 
   public async findGameById(id: string) {
-    const game = await this.gameRepo.findById(id)
+    const game = await this.gameRepo.findById(id).populate('categories').populate('vote')
 
     if (!game) throw new ApiError('Такой игры не существует', 404)
 
