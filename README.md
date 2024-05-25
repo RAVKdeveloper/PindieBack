@@ -1,4 +1,4 @@
-Ссылка на репозиторий с фронтендом: <сюда вставь ссылку на репозиторий фронтенда>
+Ссылка на репозиторий с фронтендом: https://github.com/RAVKdeveloper/PindieFront
 
 Ссылка на домен фронтенда: pindie.frontend.nomoredomainswork.ru
 
