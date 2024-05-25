@@ -20,7 +20,6 @@ class CategoryController {
   private categoryService = CategoryService
 
   @Get('/')
-  @Middleware(CheckAuthGuard.checkToken)
   @ErrorHandling()
   public async getAllGames(req: Request, res: Response) {
     const categories = await this.categoryService.getAllCategories()
