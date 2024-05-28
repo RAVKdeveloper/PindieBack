@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="../styles/styles.css" />
   </head>
   <body>
-    <button class="button instance-button logout-button">Выйти</button>
+    <button id="logout" class="button instance-button logout-button">Выйти</button>
     <section>
       <h2 class="section-title">
         <span>Игры</span
-        ><button
-          class="button instance-button add-game-button call-dialog-button"
-        >
+        ><button class="button instance-button add-game-button call-dialog-button">
           Добавить игру
         </button>
       </h2>
@@ -22,9 +20,7 @@
     <section>
       <h2 class="section-title">
         <span>Категории</span
-        ><button
-          class="button instance-button add-category-button call-dialog-button"
-        >
+        ><button class="button instance-button add-category-button call-dialog-button">
           Добавить категорию
         </button>
       </h2>
@@ -33,9 +29,7 @@
     <section>
       <h2 class="section-title">
         <span>Пользователи</span
-        ><button
-          class="button instance-button add-user-button call-dialog-button"
-        >
+        ><button class="button instance-button add-user-button call-dialog-button">
           Добавить пользователя
         </button>
       </h2>
@@ -61,12 +55,8 @@
                 class="textfield image-url-input"
                 placeholder="Ссылка на изображение"
               />
-              <button class="button instance-button edit-game-button">
-                Редактировать игру
-              </button>
-              <button class="button instance-button delete-game-button">
-                Удалить игру
-              </button>
+              <button class="button instance-button edit-game-button">Редактировать игру</button>
+              <button class="button instance-button delete-game-button">Удалить игру</button>
             </div>
           </div>
 
@@ -141,12 +131,7 @@
         </label>
         <label class="form-label">
           <span class="form-label-text">Описание игры</span>
-          <textarea
-            name="description"
-            cols="30"
-            rows="10"
-            class="textarea"
-          ></textarea>
+          <textarea name="description" cols="30" rows="10" class="textarea"></textarea>
         </label>
         <label class="form-label">
           <span class="form-label-text">Разработчик</span>
@@ -163,9 +148,7 @@
         <div class="categories-fields">
           <h3>Категории</h3>
         </div>
-        <button type="submit" class="button instance-button">
-          Добавить игру
-        </button>
+        <button type="submit" class="button instance-button">Добавить игру</button>
       </form>
     </template>
     <template class="add-category-form">
@@ -174,9 +157,7 @@
           <span class="form-label">Название категории</span>
           <input type="text" name="name" class="textfield" />
         </label>
-        <button type="submit" class="button instance-button">
-          Добавить категорию
-        </button>
+        <button type="submit" class="button instance-button">Добавить категорию</button>
       </form>
     </template>
     <template class="add-user-form">
@@ -193,13 +174,12 @@
           <span class="form-label">Пароль</span>
           <input type="password" name="password" class="textfield" />
         </label>
-        <button type="submit" class="button instance-button">
-          Добавить пользователя
-        </button>
+        <button type="submit" class="button instance-button">Добавить пользователя</button>
       </form>
     </template>
     <script src="../scripts/script.js" type="module"></script>
     <script src="../scripts/dialogs-controller.js" type="module"></script>
     <script src="../scripts/login.js" type="module"></script>
+    <script src="../scripts/logout.js"></script>
   </body>
 </html>

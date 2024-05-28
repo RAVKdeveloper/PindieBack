@@ -1,12 +1,12 @@
-import { Service } from 'typedi'
 import type { Request, Response } from 'express'
+import { Service } from 'typedi'
 
 import type { RequestWithUser } from '../../constants/RequestWithUser.type'
-import { ErrorHandling, Controller, Post, Get, Middleware } from '../../decorators'
 import { StatusRespones } from '../../constants/StatusRes.constant'
-import { AuthService } from '../../service'
-import { RegistrationUserDto, LoginUserDto } from '../../dto'
+import { Controller, ErrorHandling, Get, Middleware, Post, Put } from '../../decorators'
+import { LoginUserDto, RegistrationUserDto } from '../../dto'
 import { CheckAuthGuard } from '../../middlewares'
+import { AuthService } from '../../service'
 
 @Controller('/auth')
 @Service()
@@ -46,6 +46,15 @@ class AuthController {
     const user = await AuthService.me(req.user.id)
 
     res.status(200).send({ status: StatusRespones.OK, user, code: 200 })
+  }
+
+  @Put('/logout')
+  @Middleware(CheckAuthGuard.checkToken)
+  @ErrorHandling()
+  public async logout(req: Request, res: Response) {
+    await AuthService.logout(res)
+
+    res.status(200).send({ status: StatusRespones.OK, data: 'Delete cookie' })
   }
 }
 

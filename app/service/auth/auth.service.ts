@@ -1,10 +1,11 @@
 import * as bcrypt from 'bcrypt'
+import type { Response } from 'express'
 
-import { User } from '../../models/User.model'
 import { TokensService } from '../'
 import { ApiError } from '../../helpers/Error.utils'
+import { User } from '../../models/User.model'
 
-import { IRegistrationUserDto, ILoginUserDto } from '../../dto'
+import { ILoginUserDto, IRegistrationUserDto } from '../../dto'
 
 class AuthService {
   public async registration(dto: IRegistrationUserDto) {
@@ -36,6 +37,12 @@ class AuthService {
     if (!user) throw new ApiError('Такой пользователь не существует', 404)
 
     return user
+  }
+
+  public async logout(res: Response) {
+    res.clearCookie(process.env.NAME_TOKEN, {
+      httpOnly: true,
+    })
   }
 
   private async checkUserCredentials(email: string, password: string) {

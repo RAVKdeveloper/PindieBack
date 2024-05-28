@@ -24,8 +24,8 @@ form &&
     }
   })
 
-const logoutButton = document.querySelector('.logout-button')
-logoutButton &&
-  logoutButton.addEventListener('click', async () => {
-    window.location.href = '/'
-  })
+// const logoutButton = document.querySelector('.logout-button')
+// logoutButton &&
+//   logoutButton.addEventListener('click', async () => {
+//     window.location.href = '/'
+//   })
