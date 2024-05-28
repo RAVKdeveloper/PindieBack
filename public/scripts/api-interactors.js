@@ -17,7 +17,11 @@ const postData = async (url, data) => {
       },
       body: JSON.stringify(data),
     })
-    if (response.status !== 200) {
+
+    if (response.status === 400) {
+      throw new Error('Некорректные данные')
+    }
+    if (response.status !== 200 && response.status !== 201) {
       throw new Error((await response.json()).message)
     }
     return response
@@ -35,7 +39,11 @@ const putData = async (url, data) => {
       },
       body: JSON.stringify(data),
     })
-    if (response.status !== 200) {
+
+    if (response.status === 400) {
+      throw new Error('Некорректные данные')
+    }
+    if (response.status !== 200 && response.status !== 201) {
       throw new Error((await response.json()).message)
     }
     return response
